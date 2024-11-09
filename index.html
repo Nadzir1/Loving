@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Proposal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+        .container {
+            text-align: center;
+            position: relative;
+            width: 90%;
+            max-width: 300px;
+            min-height: 200px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .yes-button {
+            padding: 15px 30px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+        }
+        #noButton {
+            position: absolute;
+            padding: 8px 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 3px;
+            background-color: #f44336;
+            color: white;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            font-size: 1.5em;
+            padding: 0 10px;
+        }
+        #thankYouMessage {
+            display: none;
+            color: #4CAF50;
+            font-size: 1.5em;
+            margin-top: 20px;
+            animation: fadeIn 1s;
+            padding: 0 10px;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>I Love You, Do You Love Me?</h2>
+        <button class="yes-button" onclick="showThankYou()">Yes</button>
+        <button id="noButton">No</button>
+        <div id="thankYouMessage">Thank you for loving me! 🥰</div>
+    </div>
+
+    <script>
+        const noButton = document.getElementById('noButton');
+        const container = document.querySelector('.container');
+        const question = document.querySelector('h2');
+        const yesButton = document.querySelector('.yes-button');
+        const thankYouMessage = document.getElementById('thankYouMessage');
+
+        function showThankYou() {
+            question.style.display = 'none';
+            yesButton.style.display = 'none';
+            noButton.style.display = 'none';
+            thankYouMessage.style.display = 'block';
+        }
+
+        // Set initial position
+        noButton.style.left = '100px';
+        noButton.style.top = '100px';
+
+        // Mobile touch handler
+        noButton.addEventListener('touchstart', moveButton);
+        // Desktop hover handler
+        noButton.addEventListener('mouseover', moveButton);
+
+        function moveButton(e) {
+            e.preventDefault();
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = noButton.getBoundingClientRect();
+            
+            let newX = Math.random() * (containerRect.width - buttonRect.width);
+            let newY = Math.random() * (containerRect.height - buttonRect.height);
+            
+            // Memastikan tombol tetap dalam container
+            newX = Math.max(0, Math.min(newX, containerRect.width - buttonRect.width));
+            newY = Math.max(0, Math.min(newY, containerRect.height - buttonRect.height));
+            
+            noButton.style.left = newX + 'px';
+            noButton.style.top = newY + 'px';
+        }
+    </script>
+</body>
+</html>
